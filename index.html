@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Missing You: Heartfelt Pages</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Sacramento:400,700|Poppins:400,700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffe8f0 0%, #b39ddb 100%);
+      font-family: 'Poppins', sans-serif;
+      color: #4a0036;
+      overflow-x: hidden;
+    }
+    .bg-anim, .bg-anim * { pointer-events:none; user-select:none; }
+    .bg-anim { position: fixed; top:0; left:0; width:100vw; height:100vh; z-index:0; }
+    .page {
+      display: none;
+      width: 100vw;
+      min-height: 100vh;
+      position: relative;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background: transparent;
+      z-index: 2;
+      animation: fadeIn 1s;
+      box-sizing: border-box;
+    }
+    .page.active {
+      display: flex;
+      animation: fadeIn 1s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .next-btn {
+      margin: 3em auto 2em auto;
+      padding: 0.7em 2.2em;
+      font-family: 'Sacramento', cursive;
+      font-size: 1.4em;
+      color: #fff;
+      background: linear-gradient(90deg, #ffb7c5 80%, #f8bbd0 100%);
+      border: none;
+      border-radius: 2em;
+      box-shadow: 0 2px 18px #ffb7c560;
+      cursor: pointer;
+      transition: background 0.23s, color 0.15s, transform 0.15s;
+      outline: none;
+      letter-spacing: 1.3px;
+      text-shadow: 0 2px 16px #b39ddb44;
+      z-index: 12;
+    }
+    .next-btn:active {
+      background: #ff6f91;
+      color: #fff;
+      transform: scale(0.98);
+    }
+    /* PAGE 1: Intro */
+    .main-heart { font-size: 4em; margin-top: 12vh; margin-bottom: 0.5em; animation: beat 1.6s infinite; text-align: center; color: #ff6f91; text-shadow: 0 2px 24px #ffb7c544;}
+    @keyframes beat { 0%,100% { transform: scale(1);} 10% { transform: scale(1.12);} 15% { transform: scale(0.94);} 25% { transform: scale(1.06);} 50% { transform: scale(1);}}
+    .intro-title {font-family: 'Sacramento', cursive; font-size: 2.6em; color: #ad1457; text-shadow: 0 6px 24px #ffb7c533; text-align: center; margin-bottom: 0.2em; margin-top: 0; letter-spacing: 1.5px;}
+    .intro-sub {font-size: 1.2em; color: #7b1fa2; text-align: center; margin: 1em auto 0 auto; max-width: 420px; background: rgba(255,255,255,0.8); border-radius: 18px; padding: 1.2em 2em; box-shadow: 0 2px 10px #ffb7c540; letter-spacing: 0.5px;}
+    .collage-title { font-family: 'Sacramento', cursive; font-size: 2.1em; color: #ad1457; text-align: center; margin: 2.3em 0 0.1em 0; letter-spacing: 1.2px;}
+    .collage-grid {display: flex; flex-wrap: wrap; gap: 24px 24px; justify-content: center; align-items: flex-start; background: rgba(255,255,255,0.2); border-radius: 24px; margin: 2.2em auto 0 auto; padding: 18px 10px 19px 10px; max-width: 92vw; z-index: 2;}
+    .polaroid {background: #fff; border-radius: 14px; padding: 0.6em 0.6em 1.3em 0.6em; box-shadow: 0 4px 22px #b39ddb33; display: flex; flex-direction: column; align-items: center; width: 160px; position: relative; cursor: pointer; transition: box-shadow 0.2s, transform 0.19s; border: 2.5px solid #ffd6e0; animation: fadeIn 1.3s;}
+    .polaroid:hover { box-shadow: 0 8px 38px #ff6f9199; border: 2.5px solid #ff6f91; z-index: 3; transform: scale(1.09) rotate(-3deg);}
+    .polaroid img {width: 140px; height: 120px; object-fit: cover; border-radius: 11px; box-shadow: 0 3px 16px #ffb7c560;}
+    .polaroid-caption {margin-top: 1em; text-align: center; font-size: 1.02em; color: #ad1457; font-family: 'Sacramento', cursive; letter-spacing: 0.02em;}
+    .scrapbook-title {font-family: 'Sacramento', cursive; color: #ad1457; font-size: 2em; text-align: center; margin: 2.5em 0 0.3em 0; letter-spacing: 1.2px;}
+    .scrapbook-note {text-align: center; color: #7b1fa2; font-family: 'Poppins', sans-serif; max-width:480px; margin:0 auto 1em auto; font-size:1.09em; line-height:1.5; background: rgba(255,255,255,0.8); border-radius: 13px; padding: 0.7em 1.3em; box-shadow: 0 2px 10px #ffb7c540; animation: fadeIn 1.4s;}
+    .scrapbook-grid {display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; padding: 1.2em 0 1em 0; animation: fadeIn 1s;}
+    .scrapbook-img-frame {position: relative; width: 110px; height: 95px; background: #fff; border-radius: 14px; box-shadow: 0 4px 24px #b39ddb22; cursor: pointer; transition: transform 0.19s, box-shadow 0.19s; border: 2px solid #ffd6e0; overflow: hidden; animation: fadeIn 1.3s;}
+    .scrapbook-img-frame:hover, .scrapbook-img-frame.active {transform: scale(1.13) rotate(-3deg); box-shadow: 0 8px 32px #ff6f9199; border: 2px solid #ff6f91; z-index: 3;}
+    .scrapbook-img-frame img {width: 100%; height: 100%; object-fit: cover; border-radius: 10px; background: #fff; transition: box-shadow 0.19s;}
+    .scrapbook-popup {position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); background: #fff4fa; border-radius: 13px; padding: 0.65em 1em; font-family: 'Sacramento', cursive; color: #b00055; font-size: 1.05em; box-shadow: 0 2px 18px #ff6f911f; border: 1.5px solid #ffb7c5; min-width: 120px; min-height: 40px; max-width: 180px; text-align: center; z-index: 12; animation: scrapbookNotePop .33s cubic-bezier(.57,1.47,.63,.86); pointer-events: none;}
+    @keyframes scrapbookNotePop {0% {opacity:0;transform:translate(-50%,-60%) scale(0.7);}100% {opacity:1;transform:translate(-50%,-50%) scale(1);}}
+    .gallery-title {font-family: 'Sacramento', cursive; color: #ad1457; font-size: 2em; text-align: center; margin: 2.5em 0 0.2em 0; letter-spacing: 1.2px;}
+    .gallery-grid {display: flex; flex-wrap: wrap; justify-content: center; gap: 24px 18px; padding: 1.2em 0 1em 0; animation: fadeIn 1s;}
+    .gallery-img-frame {position: relative; width: 200px; height: 160px; background: #fff; border-radius: 22px; box-shadow: 0 4px 24px #b39ddb22; cursor: pointer; transition: transform 0.19s, box-shadow 0.19s; border: 3px solid #ffd6e0; overflow: hidden; animation: fadeIn 1.3s;}
+    .gallery-img-frame:hover, .gallery-img-frame.active {transform: scale(1.13) rotate(-3deg); box-shadow: 0 8px 32px #ff6f9199; border: 3px solid #ff6f91; z-index: 3;}
+    .gallery-img-frame img {width: 100%; height: 100%; object-fit: cover; border-radius: 14px; background: #fff; transition: box-shadow 0.19s;}
+    .gallery-popup-bg {position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(255, 240, 250, 0.95); z-index: 2002; display: none; align-items: center; justify-content: center;}
+    .gallery-popup-bg.active { display: flex; }
+    .gallery-popup-content {background: #fff; border-radius: 34px; padding: 2em 2em 1.3em 2em; box-shadow: 0 8px 52px #b39ddb77; text-align: center; max-width: 93vw; max-height: 91vh; position: relative; animation: fadeIn 0.6s; overflow: auto;}
+    .gallery-popup-close {position: absolute; top: 18px; right: 26px; background: #ffeef8; color: #c2185b; border: none; font-size: 2.2em; border-radius: 50%; cursor: pointer; padding: 0 12px; z-index: 2; box-shadow: 0 2px 10px #ffb7c522; transition: background 0.17s;}
+    .gallery-popup-close:hover { background: #ffd6e0; }
+    .gallery-popup-img {width: 380px; max-width: 88vw; border-radius: 32px; box-shadow: 0 8px 24px #ffb7c599; margin-bottom: 1.3em; background: #fff;}
+    .gallery-popup-message {margin: 0.6em auto 0  auto; font-size: 1.18em; font-family: 'Sacramento', cursive; color: #b00055; background: #fff4fa; border-radius: 16px; padding: 1.3em 1.2em; box-shadow: 0 2px 18px #ff6f911f; letter-spacing: 0.03em; line-height: 1.5; max-width: 400px; text-shadow: 0 2px 10px #ffb7c533; border: 2px solid #ffd6e0; animation: fadeIn 1.0s;}
+    #letter-page {background: linear-gradient(120deg, #ffe8f0 70%, #b39ddb 100%); min-height: 100vh; width: 100vw; top: 0; left: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 8vh;}
+    .letter-section {width: 97vw; max-width: 660px; margin: 2.5em auto 0 auto; background: rgba(255,255,255,0.93); border-radius: 28px; box-shadow: 0 2px 40px #b39ddb22; padding: 2.5em 1.5em 2.5em 1.5em; border: 2.5px solid #ffd6e0; position: relative; z-index: 2; min-height: 320px; overflow: hidden;}
+    .letter-title {font-family: 'Sacramento', cursive; color: #ad1457; font-size: 2.15em; text-align: center; margin-bottom: 0.6em; letter-spacing: 2px; text-shadow: 0 4px 24px #ffb7c533; animation: fadeIn 1.1s;}
+    #typed-letter {font-family: 'Sacramento', cursive; font-size: 1.5em; color: #6c0b36; padding: 1.2em 0.2em 1em 1.1em; letter-spacing: 0.05em; line-height: 1.7; background: rgba(255,255,255,0.15); border-left: 3px solid #ff6f91; border-radius: 18px; min-height: 80px; text-shadow: 0 2px 15px #e1bee755; animation: fadeIn 2.3s;}
+    @media (max-width: 700px) {.gallery-popup-img { width: 95vw; } .letter-section { padding: 1.4em 0.3em 2em 0.7em; } .gallery-img-frame { width: 90vw; } .polaroid { width: 82vw; } .polaroid img { width: 70vw; }}
+    @media (max-width: 480px) {.hero-title { font-size: 2.1em; } .hero-img { width: 90px; height: 90px; } .gallery-popup-img { width: 99vw; } .letter-section { padding: 0.8em 0.05em 1.3em 0.5em; } .gallery-img-frame { width: 96vw; } .polaroid { width: 96vw; } .polaroid img { width: 83vw; }}
+  </style>
+</head>
+<body>
+  <audio id="bg-music" src="https://files.catbox.moe/y2ueft.mp3" autoplay loop></audio>
+  <div class="bg-anim" id="bg-anim"></div>
+  <!-- PAGE 1: Intro -->
+  <section class="page active" id="page-0">
+    <div class="main-heart">❤️‍🩹</div>
+    <div class="intro-title">Missing You, from the Heart</div>
+    <div class="intro-sub">
+      When you're not here, the world is a little less bright. These pages are my way of holding you close, no matter the distance.<br><br>
+      <span style="font-size:1.5em;color:#ff6f91;">💭</span>
+    </div>
+    <button class="next-btn" id="next-btn-0">Next &rarr;</button>
+  </section>
+  <!-- PAGE 2: Collage -->
+  <section class="page" id="page-1">
+    <div class="collage-title">Polaroids of Us</div>
+    <div class="collage-grid" id="collage-grid"></div>
+    <button class="next-btn" id="next-btn-1">Next &rarr;</button>
+  </section>
+  <!-- PAGE 3: Scrapbook -->
+  <section class="page" id="page-2">
+    <div class="scrapbook-title">Little Moments, Big Feelings</div>
+    <div class="scrapbook-note">Tap a photo for a note from my heart.</div>
+    <div class="scrapbook-grid" id="scrapbook-grid"></div>
+    <button class="next-btn" id="next-btn-2">Next &rarr;</button>
+  </section>
+  <!-- PAGE 4: Gallery -->
+  <section class="page" id="page-3">
+    <div class="gallery-title">Gallery of Love</div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+    <button class="next-btn" id="next-btn-3">Next &rarr;</button>
+  </section>
+  <div class="gallery-popup-bg" id="gallery-popup-bg">
+    <div class="gallery-popup-content">
+      <button class="gallery-popup-close" id="gallery-popup-close">&times;</button>
+      <img id="gallery-popup-img" class="gallery-popup-img" src="" alt="Gallery Memory">
+      <div class="gallery-popup-message" id="gallery-popup-message"></div>
+    </div>
+  </div>
+  <!-- PAGE 5: Letter -->
+  <section class="page" id="page-4">
+    <div class="letter-section">
+      <div class="letter-title">A Letter from My Heart</div>
+      <div id="typed-letter"></div>
+    </div>
+  </section>
+  <script>
+  // Background animation: hearts, stars, petals
+  function randomFloat(a, b) { return a + Math.random() * (b - a); }
+  function bgAnim() {
+    const bg = document.getElementById('bg-anim');
+    function add(emoji, interval, sizeR, moveR) {
+      setInterval(() => {
+        if (!document.body.contains(bg)) return;
+        let el = document.createElement('span');
+        el.textContent = emoji;
+        el.style.position = 'absolute';
+        el.style.left = randomFloat(0, 98) + 'vw';
+        el.style.top = '-8vh';
+        el.style.fontSize = randomFloat(sizeR[0], sizeR[1]) + 'px';
+        el.style.opacity = randomFloat(.18, .28);
+        el.style.pointerEvents = 'none';
+        bg.appendChild(el);
+        let dur = randomFloat(moveR[0], moveR[1]);
+        el.animate([
+          { transform: `translateY(0) scale(1) rotate(0deg)` },
+          { transform: `translateY(105vh) scale(1.1) rotate(${randomFloat(-23, 23)}deg)` }
+        ], { duration: dur * 1000, fill: 'forwards', easing: 'ease-in-out' });
+        setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, dur * 1000 + 500);
+      }, interval);
+    }
+    add("💖", 400, [26, 44], [5, 9]);
+    add("✨", 700, [16, 32], [7, 13]);
+    add("🌸", 900, [20, 30], [10, 14]);
+  }
+  bgAnim();
+
+  // Page navigation and rendering
+  function showPage(idx) {
+    for (let i = 0; i < 5; ++i) {
+      document.getElementById('page-' + i).classList.remove('active');
+    }
+    document.getElementById('page-' + idx).classList.add('active');
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    if (idx === 4) runTypewriter();
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    // Attach next button listeners
+    for (let i = 0; i < 4; i++) {
+      document.getElementById('next-btn-' + i).onclick = function() { showPage(i + 1); };
+    }
+    renderCollage();
+    renderScrapbook();
+    renderGallery();
+    // Music auto-play
+    const music = document.getElementById('bg-music');
+    music.play().catch(()=>{});
+    document.body.addEventListener('click', function once(){
+      music.play().catch(()=>{});
+      document.body.removeEventListener('click', once);
+    });
+    // Gallery popup close
+    document.getElementById('gallery-popup-close').onclick = function () {
+      document.getElementById('gallery-popup-bg').classList.remove('active');
+    };
+    document.getElementById('gallery-popup-bg').onclick = function (e) {
+      if (e.target === this) this.classList.remove('active');
+    };
+  });
+
+  // Collage
+  const POLAROIDS = [
+    { src: "https://i.ibb.co/1G5FWLMK/IMG-2256.jpg", note: "The day was brighter with you beside me." },
+    { src: "https://i.ibb.co/vCZQ92Wg/IMG-4083.jpg", note: "All my dreams lead back to you." },
+    { src: "https://i.ibb.co/DPwKfwVL/IMG-2258.jpg", note: "Smiles, sunsets, soft whispers—still with me." },
+    { src: "https://i.ibb.co/Hpxcw67v/IMG-4085.jpg", note: "Each photo a touch, a memory, a longing." },
+    { src: "https://i.ibb.co/Hf82JCpg/IMG-4089.jpg", note: "Missing you is my heart's gentle ache." },
+    { src: "https://i.ibb.co/0j5t9PX7/98ba4001-e267-49c5-83e9-69a4979e1ed1.jpg", note: "Your smile is my sunrise after dark nights." }
+  ];
+  function renderCollage() {
+    const grid = document.getElementById('collage-grid');
+    grid.innerHTML = '';
+    POLAROIDS.forEach(obj => {
+      let pol = document.createElement('div');
+      pol.className = "polaroid";
+      let img = document.createElement('img');
+      img.src = obj.src;
+      img.alt = "Polaroid";
+      let cap = document.createElement('div');
+      cap.className = "polaroid-caption";
+      cap.innerText = obj.note;
+      pol.appendChild(img);
+      pol.appendChild(cap);
+      grid.appendChild(pol);
+    });
+  }
+
+  // Scrapbook - Hindi Shayari
+  const SCRAPBOOK_IMAGES = [
+    "https://i.ibb.co/0j2DPCmH/IMG-8587.jpg",
+    "https://i.ibb.co/G47Wzv8j/IMG-8588.jpg",
+    "https://i.ibb.co/wZvmRC2C/IMG-8843.jpg",
+    "https://i.ibb.co/jvbkPVcB/IMG-2264.jpg",
+    "https://i.ibb.co/Q367r5tW/IMG-2255.jpg",
+    "https://i.ibb.co/4nTPpmZQ/IMG-2254.jpg",
+    "https://i.ibb.co/jvrMb9FH/IMG-2263.jpg",
+    "https://i.ibb.co/VWfMhxCS/IMG-2259.jpg"
+  ];
+  const SCRAPBOOK_NOTES = [
+    "तेरी यादों की बारिश में, हर शाम भीग जाता हूँ,<br>तेरे बिना इस दिल को, हर पल अधूरा पाता हूँ।",
+    "चाँदनी रातों में तेरा नाम गुनगुनाता हूँ,<br>तेरी मुस्कान के ख्यालों में खुद को खो जाता हूँ।",
+    "हर धड़कन में बसी है तेरी प्यारी सी बातें,<br>तू पास हो या दूर, तुझसे ही चलती है मेरी साँसें।",
+    "तेरे बिना ये मौसम भी सूना सा लगता है,<br>तेरी हँसी से ही मेरा हर दिन सजता है।",
+    "तेरी आवाज़ की मिठास, लफ्ज़ों में बयां नहीं होती,<br>तेरा जिक्र आते ही मेरी रूह मुस्कुरा उठती है।"
+  ];
+  function renderScrapbook() {
+    const grid = document.getElementById('scrapbook-grid');
+    grid.innerHTML = '';
+    SCRAPBOOK_IMAGES.forEach((src, i) => {
+      let frame = document.createElement('div');
+      frame.className = "scrapbook-img-frame";
+      let img = document.createElement('img');
+      img.src = src;
+      img.alt = "Scrapbook";
+      frame.appendChild(img);
+      frame.onclick = function (e) {
+        if (frame.querySelector('.scrapbook-popup')) {
+          frame.querySelector('.scrapbook-popup').remove();
+          frame.classList.remove("active");
+        } else {
+          document.querySelectorAll('.scrapbook-img-frame.active').forEach(f => {
+            f.classList.remove('active');
+            let old = f.querySelector('.scrapbook-popup');
+            if (old) old.remove();
+          });
+          frame.classList.add("active");
+          let note = document.createElement('div');
+          note.className = "scrapbook-popup";
+          note.innerHTML = SCRAPBOOK_NOTES[i % SCRAPBOOK_NOTES.length];
+          frame.appendChild(note);
+        }
+        e.stopPropagation();
+      };
+      grid.appendChild(frame);
+    });
+    grid.onclick = function (e) {
+      if (!e.target.classList.contains('scrapbook-img-frame') && !e.target.classList.contains('scrapbook-popup')) {
+        document.querySelectorAll('.scrapbook-img-frame.active').forEach(f => {
+          f.classList.remove('active');
+          let old = f.querySelector('.scrapbook-popup');
+          if (old) old.remove();
+        });
+      }
+    }
+  }
+
+  // Gallery
+  const GALLERY = [
+    { src: "https://i.ibb.co/HD2bK0Vv/IMG-2265.jpg", note: "I carry you with me, always." },
+    { src: "https://i.ibb.co/5WRx6YDq/IMG-2266.jpg", note: "Time stops when I think of you." },
+    { src: "https://i.ibb.co/tp6zJsDj/IMG-3682.jpg", note: "You are the melody in my silence." },
+    { src: "https://i.ibb.co/7Jcmj22X/IMG-3716.jpg", note: "I miss you more with every passing day." },
+    { src: "https://i.ibb.co/fGX91P8H/IMG-3713.jpg", note: "Love lingers in every memory." },
+    { src: "https://i.ibb.co/Fb83nb9Q/IMG-3718.jpg", note: "The world spins, but my heart waits for you." },
+    { src: "https://i.ibb.co/355SRZ0Z/74022-DD7-8-A77-499-B-AD48-B434418-A07-DF.png", note: "I love you, always and a little more every day." },
+    { src: "https://i.ibb.co/WvTJngyF/IMG-3728.jpg", note: "My love for you is endless." }
+  ];
+  function renderGallery() {
+    const grid = document.getElementById('gallery-grid');
+    grid.innerHTML = '';
+    GALLERY.forEach((obj, i) => {
+      let frame = document.createElement('div');
+      frame.className = "gallery-img-frame";
+      let img = document.createElement('img');
+      img.src = obj.src;
+      img.alt = "Gallery";
+      frame.appendChild(img);
+      frame.onclick = () => showGalleryPopup(obj.src, obj.note);
+      grid.appendChild(frame);
+    });
+  }
+
+  // Gallery popup
+  function showGalleryPopup(imgUrl, message) {
+    const popupBg = document.getElementById('gallery-popup-bg');
+    const popupImg = document.getElementById('gallery-popup-img');
+    const popupMsg = document.getElementById('gallery-popup-message');
+    popupImg.src = imgUrl;
+    popupMsg.innerHTML = message;
+    popupBg.classList.add('active');
+  }
+
+  // Letter (typewriter on last page only)
+  const letterText = `
+Yaar ly kasa tri vattay ly athvun yete re tujhi brr pn nhi vatte tula sangycha v4krto but tujhi condition bghun asa vatta kasa explain kru me swatala baba la bollo me but baba bolle 2divas ajun kaam aahe so sry yaar i love you so much 🫂🫂🫂🫂 
+idk tu he read krshil ka nhi but i would like jr tu kelas he read tr
+
+Sometimes I feel like my heart is missing a beat without you. You are always in my dreams, always in my prayers. Missing you is my heart's gentle ache, a beautiful pain that reminds me how deep my love is for you. ❤️‍🩹
+  `;
+  function runTypewriter() {
+    const tw = document.getElementById('typed-letter');
+    tw.innerHTML = "";
+    let i = 0;
+    function type() {
+      if (i <= letterText.length) {
+        tw.innerHTML = letterText.substring(0, i).replace(/\n/g, "<br>");
+        i++;
+        let char = letterText.charAt(i - 1);
+        let delay = 23 + Math.random() * 25;
+        if (char === "." || char === ",") delay += 70;
+        setTimeout(type, delay);
+      }
+    }
+    type();
+  }
+  </script>
+</body>
+</html>
